@@ -32,6 +32,7 @@ public class NoteController {
         else rowAdded = noteService.updateNote(note);
 
         if (rowAdded > 0) return "redirect:/result?success";
+        else if (rowAdded == 0) return "redirect:/result?bigNote";
         else return "redirect:/result?error";
     }
 

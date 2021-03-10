@@ -19,10 +19,12 @@ public class NoteService {
     }
 
     public Integer createNote(Note note) {
+        if(note.getNotedescription().length() > 1000) return 0;
         return this.noteMapper.insertNote(note);
     }
 
     public Integer updateNote(Note note) {
+        if(note.getNotedescription().length() > 1000) return 0;
         return this.noteMapper.updateNote(note);
     }
 

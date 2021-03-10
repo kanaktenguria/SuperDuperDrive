@@ -34,9 +34,13 @@ public class FileController {
             String username = authentication.getName();
             User user = userService.getUser(username);
             int rowAdded = 0;
-            rowAdded = fileService.insertFile(new File(0, fileUpload.getOriginalFilename(), fileUpload.getContentType(), fileUpload.getSize(), user.getUserid(), fileUpload.getBytes()));
-
+            try {
+                rowAdded = fileService.insertFile(new File(0, fileUpload.getOriginalFilename(), fileUpload.getContentType(), fileUpload.getSize(), user.getUserid(), fileUpload.getBytes()));
+            }catch(IOException e){
+                throw e;
+            }
             if (rowAdded > 0) return "redirect:/result?success";
+            else if(rowAdded == 0) return "redirect:/result?duplicateFile";
             else return "redirect:/result?error";
         }
         else return "redirect:/result?error";

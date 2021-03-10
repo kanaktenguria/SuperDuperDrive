@@ -19,7 +19,15 @@ public class FileService {
     }
 
     public int insertFile(File file) {
-        return this.fileMapper.insertFile(file);
+        if(!findFileByName(file.getFilename())){
+            return this.fileMapper.insertFile(file);
+        }
+        else return 0;
+    }
+
+    public boolean findFileByName(String filename){
+        if(this.fileMapper.getFileByName(filename) != null) return true; //File found
+        else return false; //File not found
     }
 
     public void deleteFile(Integer fileId) {
